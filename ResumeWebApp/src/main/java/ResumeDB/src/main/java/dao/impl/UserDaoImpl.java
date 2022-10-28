@@ -55,18 +55,38 @@ public class UserDaoImpl extends ConnectionAbstract implements UserDaoInter {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers(String name, String surname, Integer nationalityId) {
 
         List<User> userList = new ArrayList<>();
         try(Connection c = connect()){
-            Statement statement = c.createStatement();
-            statement.execute("select "
+            String sql = "select "
                     + "u.*, "
                     + "n.nationality, "
                     + "c.name as birthplace "
                     + "from user u "
                     + "left join country n on u.nationality_id = n.id "
-                    + "left join country c on u.birthplace_id = c.id");
+                    + "left join country c on u.birthplace_id = c.id where 1=1 ";
+
+            if(name != null && !name.trim().isEmpty()) sql += "and u.name=?";
+            if(surname != null && !surname.trim().isEmpty()) sql += "and u.surname=?";
+            if(nationalityId != null) sql += "and u.nationality_id=?";
+
+            PreparedStatement statement = c.prepareStatement(sql);
+
+            int i = 1;
+            if(name != null && !name.trim().isEmpty()) {
+                statement.setString(i, name);
+                i++;
+            }
+            if(surname != null && !surname.trim().isEmpty()) {
+                statement.setString(i, surname);
+                i++;
+            }
+            if(nationalityId != null) {
+                statement.setInt(i, nationalityId);
+            }
+
+            statement.execute();
             ResultSet resultSet = statement.getResultSet();
 
             while (resultSet.next()) {

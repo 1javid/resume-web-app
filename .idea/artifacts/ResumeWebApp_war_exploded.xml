@@ -17,7 +17,7 @@
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.30" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.19.4" />
           <element id="archive" name="ResumeDBApp-1.0-SNAPSHOT.jar">
-            <element id="module-output" name="ResumeDB" />
+            <element id="module-output" name="ResumeDBApp" />
           </element>
         </element>
       </element>

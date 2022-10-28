@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ResumeWebApp/src/main/java/ResumeDB/ResumeDB.iml" filepath="$PROJECT_DIR$/ResumeWebApp/src/main/java/ResumeDB/ResumeDB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ResumeWebApp/src/main/java/ResumeDB/ResumeDBApp.iml" filepath="$PROJECT_DIR$/ResumeWebApp/src/main/java/ResumeDB/ResumeDBApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/ResumeWebApp/ResumeWebApp.iml" filepath="$PROJECT_DIR$/ResumeWebApp/ResumeWebApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/resume-web-app.iml" filepath="$PROJECT_DIR$/.idea/resume-web-app.iml" />
     </modules>

@@ -12,6 +12,5 @@ public class Main {
         Scanner con = new Scanner(System.in);
 
         UserDaoInter userDaoInter = new UserDaoImpl();
-        System.out.println(userDaoInter.getAllUsers());
     }
 }

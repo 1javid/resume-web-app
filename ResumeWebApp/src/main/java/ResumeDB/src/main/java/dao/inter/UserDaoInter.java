@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserDaoInter {
 
-    List<User> getAllUsers();
+    List<User> getAllUsers(String name, String surname, Integer nationalityId);
 
     User getById(int userId);
 

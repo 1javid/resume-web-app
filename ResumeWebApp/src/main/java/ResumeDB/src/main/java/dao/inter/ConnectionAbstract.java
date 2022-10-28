@@ -7,7 +7,6 @@ public class ConnectionAbstract {
 
      protected static Connection connect() throws Exception {
 
-         Class.forName("com.mysql.cj.Driver");
          Class.forName("com.mysql.cj.jdbc.Driver");
          String url = "jdbc:mysql://localhost:3306/resume";
          String username = "root";
