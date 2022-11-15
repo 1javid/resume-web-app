@@ -10,6 +10,7 @@
 <%User u = (User) request.getAttribute("user");%>
     <div>
         <form action="userdetail" method="POST">
+            <input type="hidden" name="action" value="update">
             <input type="hidden" name="id" value="<%=u.getId()%>">
             
             <label for="name">Name:</label>

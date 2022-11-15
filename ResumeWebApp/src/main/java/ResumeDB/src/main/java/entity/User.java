@@ -9,6 +9,7 @@ public class User {
     private String name;
     private String surname;
     private String email;
+    private String password;
     private String phone;
     private String profileDesc;
     private String address;
@@ -68,6 +69,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getPassword() {
+        return email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {
@@ -133,6 +141,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", profileDesc='" + profileDesc + '\'' +
                 ", address='" + address + '\'' +

@@ -19,6 +19,8 @@
           <element id="archive" name="ResumeDBApp-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ResumeDBApp" />
           </element>
+          <element id="library" level="project" name="Maven: at.favre.lib:bcrypt:0.9.0" />
+          <element id="library" level="project" name="Maven: at.favre.lib:bytes:1.3.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

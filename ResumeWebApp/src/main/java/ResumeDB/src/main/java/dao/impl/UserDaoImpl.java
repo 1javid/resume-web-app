@@ -1,14 +1,12 @@
 package dao.impl;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import dao.inter.ConnectionAbstract;
 import dao.inter.UserDaoInter;
 import entity.Country;
 import entity.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +15,6 @@ import java.util.List;
 public class UserDaoImpl extends ConnectionAbstract implements UserDaoInter {
 
     private User getUser(ResultSet resultSet) throws Exception {
-
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             String surname = resultSet.getString("surname");
@@ -37,15 +34,35 @@ public class UserDaoImpl extends ConnectionAbstract implements UserDaoInter {
             return new User(id, name, surname, email, phone, profileDesc, address, birthdate, birthplace, nationality);
     }
 
+
+    private User getUserBrief(ResultSet resultSet) throws Exception {
+
+        int id = resultSet.getInt("id");
+        String name = resultSet.getString("name");
+        String surname = resultSet.getString("surname");
+        String email = resultSet.getString("email");
+        String phone = resultSet.getString("phone");
+        String profileDesc = resultSet.getString("profile_description");
+        String address = resultSet.getString("address");
+        Date birthdate = resultSet.getDate("birthdate");
+
+        User user = new User(id, name, surname, email, phone, profileDesc, address, birthdate, null, null);
+        user.setPassword(resultSet.getString("password"));
+
+        return user;
+    }
+
+    private BCrypt.Hasher crypt = BCrypt.withDefaults();
     @Override
     public boolean addUser(User u) {
         try (Connection c = connect()){
-            PreparedStatement statement = c.prepareStatement("insert into user(name, surname, email, phone, profile_description) values(?,?,?,?,?)");
+            PreparedStatement statement = c.prepareStatement("insert into user(name, surname, email, password, phone, profile_description) values(?,?,?,?,?,?)");
             statement.setString(1, u.getName());
             statement.setString(2, u.getSurname());
             statement.setString(3, u.getEmail());
-            statement.setString(4, u.getPhone());
-            statement.setString(5, u.getProfileDesc());
+            statement.setString(4, crypt.hashToString(4, u.getPassword().toCharArray()));
+            statement.setString(5, u.getPhone());
+            statement.setString(6, u.getProfileDesc());
 
             return statement.execute();
         } catch (Exception ex) {
@@ -98,6 +115,23 @@ public class UserDaoImpl extends ConnectionAbstract implements UserDaoInter {
         }
 
         return userList;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        User result = null;
+        try(Connection c = connect()) {
+            PreparedStatement statement = c.prepareStatement("select * from user where email=?");
+            statement.setString(1, email);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                result = getUserBrief(rs);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
     @Override
